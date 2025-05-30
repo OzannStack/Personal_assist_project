@@ -1,0 +1,5 @@
+requests
+pyttsx3
+tk
+speechrecognition
+nltk
