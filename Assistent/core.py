@@ -47,13 +47,46 @@ def weather_api():
 
     # Ambil API Key dan Kota dari config.json
     Api_key = config.get("Api_key", "")
-    url = f"http://api.weatherapi.com/v1/current.json?key={Api_key}&q=beijing&aqi=no"
+    City = config.get("City", "")
+    url = f"http://api.weatherapi.com/v1/current.json?key={Api_key}&q={City}&aqi=no"
     response = requests.get(url)
     data1 = response.json()
 
     # Pastikan 'current' ada dalam response
-    teks = f"beijing : \n {data1['current']['temp_c']} °C"
+    teks = f"{data1['location']['name']} : \n {data1['current']['temp_c']} °C"
     return teks
+def change_location():
+    try:
+        with open('data/config.json', 'r') as file:
+            config = json.load(file)  # bukan `data`, biar jelas ini config
+    except FileNotFoundError:
+        config = {}
+    #Label Untuk mengubah
+    modify_loc = tk.Toplevel()
+    modify_loc.geometry("400x300")
+    modify_loc.title("Modifikasi Catatan")
+
+    tk.Label(modify_loc, text="Masukkan Kota yang diinginkan :").pack(pady=10)
+    Location = tk.StringVar()
+    tk.Entry(modify_loc, textvariable=Location).pack()
+    def simpan_location():
+        new_location = Location.get()
+        if new_location :
+            config['City'] = new_location
+            #Save Json
+            with open('data/config.json', 'w') as file:
+                json.dump(config, file, indent=2)
+        else :
+            messagebox.showwarning("Peringatan", "Silakan isi nama kota terlebih dahulu.")
+        warn = tk.Toplevel()
+        warn.geometry("300x200")
+        warn.title("Alert")
+        alert_label = tk.Label(warn, text="Buka kembali app untuk mempebarui kota!",font=('calibre',10,'normal'))
+        alert_label.pack()
+        tk.Button(warn, text="Ok", command=warn.destroy).pack(pady=20)
+        modify_loc.destroy()
+    tk.Button(modify_loc, text="Simpan", command=simpan_location).pack(pady=20)
+
 
 #Menyimpan Data
 def save_data(filepath = 'data/notes.json'): 

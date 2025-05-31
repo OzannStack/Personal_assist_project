@@ -1,5 +1,5 @@
 import tkinter as tk
-from Assistent.core import greet_user, open_app, open_browser, show_data, weather_api
+from Assistent.core import greet_user, open_app, open_browser, show_data, weather_api, change_location
 from utils.voice import speak
 
 def handle_notes():
@@ -17,7 +17,7 @@ def handle_open_browser():
 def main():
     window = tk.Tk()
     window.title("Personal AI Assistant")
-    window.geometry("400x300")
+    window.geometry("500x400")
     window.config(bg="#f0f0f0")
     
     # Greeting
@@ -33,6 +33,9 @@ def main():
 
     # Buttons
     btn_notes = tk.Button(window, text="📒 Notes", width=20, command=handle_notes)
+    btn_notes.pack(pady=5)
+
+    btn_notes = tk.Button(window, text="📒 Notes", width=20, command=change_location)
     btn_notes.pack(pady=5)
 
     btn_open_app = tk.Button(window, text="🖥️ Open App", width=20, command=handle_open_app)
