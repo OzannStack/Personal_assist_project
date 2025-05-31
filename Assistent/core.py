@@ -38,7 +38,7 @@ def greet_user():
         greeting = "Selamat Malam"
     print(greeting)
     return greeting
-def weather_api(filepath = 'data/config.json'):
+def weather_api():
     try:
         with open('data/config.json', 'r') as file:
             config = json.load(file)  # bukan `data`, biar jelas ini config
