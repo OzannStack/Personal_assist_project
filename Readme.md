@@ -1,4 +1,4 @@
-# 🧠 Personal AI Assistant - Python GUI
+# 🧠 Personal Assistant - Python GUI
 
 A simple personal assistant built with Python's `tkinter` GUI library. It helps you manage personal notes and check live weather using the [WeatherAPI](https://www.weatherapi.com/).
 
