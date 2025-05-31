@@ -6,6 +6,7 @@ import webbrowser
 from utils.voice import speak
 import tkinter as tk
 from tkinter import messagebox
+import requests
 
 #Pilihan
 
@@ -37,6 +38,22 @@ def greet_user():
         greeting = "Selamat Malam"
     print(greeting)
     return greeting
+def weather_api(filepath = 'data/config.json'):
+    try:
+        with open('data/config.json', 'r') as file:
+            config = json.load(file)  # bukan `data`, biar jelas ini config
+    except FileNotFoundError:
+        config = {}
+
+    # Ambil API Key dan Kota dari config.json
+    Api_key = config.get("Api_key", "")
+    url = f"http://api.weatherapi.com/v1/current.json?key={Api_key}&q=beijing&aqi=no"
+    response = requests.get(url)
+    data1 = response.json()
+
+    # Pastikan 'current' ada dalam response
+    teks = f"beijing : \n {data1['current']['temp_c']} °C"
+    return teks
 
 #Menyimpan Data
 def save_data(filepath = 'data/notes.json'): 
